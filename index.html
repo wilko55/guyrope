@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script>
+      var json = [
+        {
+          name: 'Au naturelle camping',
+          latitude: 48.1117058,
+          longitude: 7.3223645,
+          address: [
+            '12 some street',
+            'Alsace',
+            'France'
+          ]
+        },
+        {
+          name: 'Other campsite',
+          latitude: 47.7117058,
+          longitude: 7.2223645,
+          address: [
+            '12 some street',
+            'Alsace',
+            'France'
+          ]
+        }
+      ]
+    </script>
+    <style>
+       #map {
+        height: 400px;
+        width: 50%;
+       }
+       .map-control {
+         display: none;
+       }
+    </style>
+  </head>
+  <body>
+    <h3>My Google Maps Demo</h3>
+    <div id="map"></div>
+    <script>
+      function initMap() {
+        var map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 7,
+          center: {lat: 48.1117058, lng: 7.3223645}
+        });
+
+        var infowindow = new google.maps.InfoWindow({
+          content: content
+        });
+        for (var i = 0; i < json.length; i++) {
+          var content = '<div id="content">'+
+              '<div id="siteNotice">'+
+              '</div>'+
+              '<h1 id="firstHeading" class="firstHeading">' + json[i].name + '</h1>'+
+              '<div id="bodyContent">'+
+              '<p><b>' + json[i].address + '</b>' +
+              '</div>'+
+              '</div>';
+
+          var marker = new google.maps.Marker({
+            position: {lat: json[i].latitude, lng: json[i].longitude},
+            map: map,
+            content: content
+          });
+
+          marker.addListener('click', function() {
+                 infowindow.setContent(this.content);
+                 infowindow.open(map, this);
+           });
+
+          var infowindow = new google.maps.InfoWindow({});
+        }
+      }
+    </script>
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCl9gYSaGMtTUjkGDPBhHC4jZnhGmTskog&callback=initMap">
+    </script>
+  </body>
+</html>
