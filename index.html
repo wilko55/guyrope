@@ -1,29 +1,48 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <script
+  src="https://code.jquery.com/jquery-3.2.1.min.js"
+  integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+  crossorigin="anonymous"></script>
+  <script
+  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCl9gYSaGMtTUjkGDPBhHC4jZnhGmTskog">
+  </script>
     <script>
-      var json = [
-        {
-          name: 'Au naturelle camping',
-          latitude: 48.1117058,
-          longitude: 7.3223645,
-          address: [
-            '12 some street',
-            'Alsace',
-            'France'
-          ]
-        },
-        {
-          name: 'Other campsite',
-          latitude: 47.7117058,
-          longitude: 7.2223645,
-          address: [
-            '12 some street',
-            'Alsace',
-            'France'
-          ]
-        }
-      ]
+      $.ajax({
+        type: 'GET',
+        url: '/find/France'
+      })
+      .done(function(data) {
+        console.log(data)
+        initMap(data)
+      })
+      // var json = [
+      //   {
+      //     name: 'Au naturelle camping',
+      //     latitude: 48.1117058,
+      //     longitude: 7.3223645,
+      //     address: [
+      //       '12 some street',
+      //       'Alsace',
+      //       'France'
+      //     ]
+      //   },
+      //   {
+      //     name: 'Other campsite',
+      //     latitude: 47.7117058,
+      //     longitude: 7.2223645,
+      //     address: [
+      //       '12 some street',
+      //       'Alsace',
+      //       'France'
+      //     ]
+      //   }
+      // ]
+
+
+
+
     </script>
     <style>
        #map {
@@ -39,8 +58,9 @@
     <h3>My Google Maps Demo</h3>
     <div id="map"></div>
     <script>
-      function initMap() {
-        var map = new google.maps.Map(document.getElementById('map'), {
+    var map
+      function initMap(json) {
+        map = new google.maps.Map(document.getElementById('map'), {
           zoom: 7,
           center: {lat: 48.1117058, lng: 7.3223645}
         });
@@ -48,6 +68,7 @@
         var infowindow = new google.maps.InfoWindow({
           content: content
         });
+
         for (var i = 0; i < json.length; i++) {
           var content = '<div id="content">'+
               '<div id="siteNotice">'+
@@ -58,8 +79,12 @@
               '</div>'+
               '</div>';
 
+              json[i].address.gps.latitude = 48.1117058;
+              json[i].address.gps.longitude = 7.3223645;
+
+
           var marker = new google.maps.Marker({
-            position: {lat: json[i].latitude, lng: json[i].longitude},
+            position: {lat: json[i].address.gps.latitude, lng: json[i].address.gps.longitude},
             map: map,
             content: content
           });
@@ -72,9 +97,8 @@
           var infowindow = new google.maps.InfoWindow({});
         }
       }
+
     </script>
-    <script async defer
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCl9gYSaGMtTUjkGDPBhHC4jZnhGmTskog&callback=initMap">
-    </script>
+
   </body>
 </html>

@@ -65,7 +65,7 @@ let json = {
 };
 
 
-app.get('/find/:country/?region', (req, res) => {
+app.get('/find/:country', (req, res) => {
   let country = req.params.country;
 
   db.collection('campsites').find({ country: country }).toArray((err, results) => {
