@@ -1,68 +1,48 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
     <script
-  src="https://code.jquery.com/jquery-3.2.1.min.js"
-  integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
-  crossorigin="anonymous"></script>
-  <script
-  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCl9gYSaGMtTUjkGDPBhHC4jZnhGmTskog">
-  </script>
+    src="https://code.jquery.com/jquery-3.2.1.min.js"
+    integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+    crossorigin="anonymous"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCl9gYSaGMtTUjkGDPBhHC4jZnhGmTskog"></script>
     <script>
-      $.ajax({
-        type: 'GET',
-        url: '/find/France'
-      })
-      .done(function(data) {
-        console.log(data)
-        initMap(data)
-      })
-      // var json = [
-      //   {
-      //     name: 'Au naturelle camping',
-      //     latitude: 48.1117058,
-      //     longitude: 7.3223645,
-      //     address: [
-      //       '12 some street',
-      //       'Alsace',
-      //       'France'
-      //     ]
-      //   },
-      //   {
-      //     name: 'Other campsite',
-      //     latitude: 47.7117058,
-      //     longitude: 7.2223645,
-      //     address: [
-      //       '12 some street',
-      //       'Alsace',
-      //       'France'
-      //     ]
-      //   }
-      // ]
+      function getCampsites(url, centre) {
+        $.ajax({
+          type: 'GET',
+          url: url
+        })
+        .done(function(data) {
+          initMap(data, centre)
+        })
+      }
+      getCampsites('/find/France')
 
-
-
+      function saveNewCampsite(data) {
+        $.ajax({
+          type: 'POST',
+          url: '/campsite',
+          data: data
+        })
+        .done(function(data) {
+          alert('Saved ' + data.name)
+        })
+      }
 
     </script>
-    <style>
-       #map {
-        height: 400px;
-        width: 50%;
-       }
-       .map-control {
-         display: none;
-       }
-    </style>
-  </head>
-  <body>
-    <h3>My Google Maps Demo</h3>
-    <div id="map"></div>
+
     <script>
     var map
-      function initMap(json) {
+      function initMap(json, center) {
+        centre = {
+          latitude: 48.1117058,
+          longitude: 7.3223645
+        }
+
         map = new google.maps.Map(document.getElementById('map'), {
           zoom: 7,
-          center: {lat: 48.1117058, lng: 7.3223645}
+          center: {lat: centre.latitude, lng: centre.longitude}
         });
 
         var infowindow = new google.maps.InfoWindow({
@@ -79,12 +59,11 @@
               '</div>'+
               '</div>';
 
-              json[i].address.gps.latitude = 48.1117058;
-              json[i].address.gps.longitude = 7.3223645;
-
+          var lat = parseInt(json[i].address.gps.latitude);
+          var lng = parseInt(json[i].address.gps.longitude);
 
           var marker = new google.maps.Marker({
-            position: {lat: json[i].address.gps.latitude, lng: json[i].address.gps.longitude},
+            position: {lat: lat, lng: lng},
             map: map,
             content: content
           });
@@ -99,6 +78,32 @@
       }
 
     </script>
-
+    <style>
+       #map {
+        height: 400px;
+        width: 100%;
+       }
+       .map-control {
+         display: none;
+       }
+    </style>
+  </head>
+  <body>
+    <h1>Guyrope</h1>
+    <div class="container">
+      <div class="row">
+        <div class="col">
+          <div id="map"></div>
+          <button value="button" onclick="getCampsites('/location/-73.97822040000001/40.6435254/5')">btn</button>
+        </div>
+        <div class="col">
+          <div id="form">Add campsite</div>
+          <form>
+            <label>Name: <input type="text" name="name"></label>
+            <input type="submit" id="submitButton">
+          </form>
+        </div>
+      </div>
+    </div>
   </body>
 </html>
