@@ -1,0 +1,126 @@
+{
+    "type" : "Point",
+    "location" : {
+        "coordinates" : [
+            47.1126058,
+            8.3220645
+        ],
+        "type" : "Point"
+    },
+    "country" : "France",
+    "region" : "Alsace",
+    "name" : "Number 1 camping",
+    "type" : "Aire naturelle",
+    "facilities" : [
+        "Showers",
+        "Toilets",
+        "BBQ",
+        "Electricity hookup"
+    ],
+    "tax" : ".5",
+    "tariffs" : {
+        "adult" : "3.7",
+        "child" : "2",
+        "animal" : "1",
+        "tent" : "4",
+        "caravan" : "5"
+    },
+    "groupTarrifs" : [
+        {
+            "description" : "1 tente, 2 personnes et 1 voiture avec taxe de séjour",
+            "price" : "12.5"
+        }
+    ],
+    "pitches" : {
+        "tent" : 7,
+        "caravan" : 3
+    },
+    "paymentMethods" : {
+        "creditCard" : true,
+        "cash" : true
+    },
+    "contact" : {
+        "email" : "andycamping@tent.com",
+        "phone" : {
+            "diallingCode" : "+34",
+            "phoneNumber" : "6354632"
+        }
+    },
+    "address" : {
+        "address" : [
+            ""
+        ],
+        "gps" : {
+            "latitude" : "47.1126058",
+            "longitude" : "8.3220645"
+        }
+    },
+    "openTimes" : {
+        "opens" : "31st May",
+        "closes" : "31st September"
+    },
+    "lastUpdated" : "12/10/2017"
+},
+{
+    "_id" : ObjectId("59f617faab97e2482790ccb0"),
+    "location" : {
+        "coordinates" : [
+            -73.9782204,
+            40.6435254
+        ],
+        "type" : "Point"
+    },
+    "country" : "France",
+    "region" : "Alsace",
+    "name" : "Camping Palmer Aire naturelle",
+    "type" : "Aire naturelle",
+    "facilities" : [
+        "Showers",
+        "Toilets",
+        "BBQ",
+        "Electricity hookup"
+    ],
+    "tax" : ".5",
+    "tariffs" : {
+        "adult" : "3.7",
+        "child" : "2",
+        "animal" : "1",
+        "tent" : "4",
+        "caravan" : "5"
+    },
+    "groupTarrifs" : [
+        {
+            "description" : "1 tente, 2 personnes et 1 voiture avec taxe de séjour",
+            "price" : "12.5"
+        }
+    ],
+    "pitches" : {
+        "tent" : 7,
+        "caravan" : 3
+    },
+    "paymentMethods" : {
+        "creditCard" : true,
+        "cash" : true
+    },
+    "contact" : {
+        "email" : "andycamping@tent.com",
+        "phone" : {
+            "diallingCode" : "+34",
+            "phoneNumber" : "6354632"
+        }
+    },
+    "address" : {
+        "address" : [
+            ""
+        ],
+        "gps" : {
+            "latitude" : "47.1126058",
+            "longitude" : "7.3220645"
+        }
+    },
+    "openTimes" : {
+        "opens" : "31st May",
+        "closes" : "31st September"
+    },
+    "lastUpdated" : "12/10/2017"
+}

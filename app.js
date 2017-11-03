@@ -62,14 +62,16 @@ let json = {
   },
   lastUpdated: '12/10/2017'
 
-};
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 
+app.get('/find/?country/?region/?name', (req, res) => {
+  let query = {};
+  req.params.forEach((e) => {
+    query[e] = req.params[e];
+  })
 
-app.get('/find/:country/?region', (req, res) => {
-  let country = req.params.country;
-
-  db.collection('campsites').find({ country: country }).toArray((err, results) => {
-    console.log(err)
+  db.collection('campsites').find(query).toArray((err, results) => {
     res.send(results);
   });
 })
@@ -77,9 +79,18 @@ app.get('/find/:country/?region', (req, res) => {
 app.get('/location/:latitude/:longitude/:range', (req, res) => {
   let country = req.params.country;
 
-  db.collection('campsites').find({ country: country }).toArray((err, results) => {
-    console.log(err)
-    res.send(results);
+app.post('/campsite', (req, res) => {
+  // validate req.body-parser?
+
+  let newCampsite = new Campsite({
+    country: 'france',
+    region: 'alsace',
+    name: req.body.name
+  })
+
+  newCampsite.save((err, campsite) => {
+    if (err) { console.log('err!!', err); res.sendStatus(500)}
+    res.sendStatus(200);
   });
 })
 
