@@ -1,0 +1,21 @@
+@import "~bpk-stylesheets/index";
+
+.flex-grow-3 {
+  flex-grow: 3;
+}
+
+.flex-grow-4 {
+  flex-grow: 4;
+}
+
+.font-size-xl {
+  font-size: $bpk-font-size-xl;
+}
+
+.font-size-sm {
+  font-size: $bpk-font-size-sm;
+}
+
+body {
+  background-color: #f3f2f5;
+}
