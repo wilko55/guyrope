@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './App.scss';
 import CampsiteCard from './components/campsiteCard';
-import Map from './components/map';
+import MapContainer from './components/mapContainer';
 
 class App extends Component {
   constructor(props) {
@@ -54,7 +54,7 @@ class App extends Component {
     return (
       <div className="App">Guyrope
         {/* map goes here */}
-        <Map />
+        <MapContainer campsites={this.state.campsites} />
         <CampsiteCard error={this.state.error} isLoading={this.state.isLoading} campsites={this.state.campsites} />
         {/* <TopNav/>
         <ResultsHeader locations={this.getLocationsFromQuerystring(this.state.querystring)}/>
