@@ -22,7 +22,7 @@ class App extends Component {
       const lat = location.lat();
       const lng = location.lng();
 
-      fetch(`http://localhost:3000/location/${lat}/${lng}/20000/10`)
+      fetch(`http://localhost:3000/location/${lat}/${lng}/100/10`)
       .then((response) => {
         if (response.ok) {
 
@@ -46,14 +46,14 @@ class App extends Component {
 
   componentDidMount() {
     this.setState({ isLoading: true });
-    this.getCampsites({lat: 41.39, lng: 2.15});    
+    this.getCampsites();    
   }
 
   render() {
     return (
       <div className="App">Guyrope
         <MapContainer campsites={this.state.campsites} getCampsites={this.getCampsites} />
-        {/* <CampsiteCard error={this.state.error} isLoading={this.state.isLoading} campsites={this.state.campsites} /> */}
+        <CampsiteCard error={this.state.error} isLoading={this.state.isLoading} campsites={this.state.campsites} />
       </div>
     );
   }

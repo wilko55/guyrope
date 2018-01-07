@@ -101,6 +101,11 @@ class Map extends Component {
             this.autocomplete.addListener('place_changed', onPlaceChanged.bind(this));
             this.places = new maps.places.PlacesService(this.map);
 
+            this.map.addListener('dragend', () => {
+                const coords = this.map.getCenter();
+                this.props.getCampsites(coords)
+            })
+
             function onPlaceChanged() {
                 var place = this.autocomplete.getPlace();
                 if (place.geometry) {
