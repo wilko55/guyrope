@@ -9,21 +9,34 @@ class App extends Component {
 
     this.state = {
       campsites: [],
-      error: false,
+      error: {},
       params: {},
       querystring: ''
     };
+
+    this.getCampsites = this.getCampsites.bind(this);
   }
 
-  getLocationsFromQuerystring(query) {
-    let params = {};
-    query.split('&').forEach((el) => {
-     let arr = el.split('=');
-     params[arr[0]] = arr[1];
-    })
-    return {
-      fromPlace: params.fromPlace.substring(0,3),
-      toPlace: params.toPlace.substring(0,3)
+  getCampsites(location) {
+    if (location) {
+      const lat = location.lat();
+      const lng = location.lng();
+
+      fetch(`http://localhost:3000/location/${lat}/${lng}/20000/10`)
+      .then((response) => {
+        if (response.ok) {
+
+          return response.json();
+        } else {
+          this.setState({ error: { type: 403 } });
+        }
+      })
+      .then((results) => {
+        this.setState({ campsites: results, isLoading: false, error: false });
+      })
+      .catch(err => {
+        this.setState({ error: { type: 500 }});
+      })
     }
   }
 
@@ -33,33 +46,14 @@ class App extends Component {
 
   componentDidMount() {
     this.setState({ isLoading: true });
-
-    fetch('http://localhost:3000/location/48.110/7.321/30000/10')
-    .then((response) => {
-      if (response.ok) {
-        return response.json();
-      } else {
-        this.setState({ error: { type: 403 } });
-      }
-    })
-    .then((results) => {
-      this.setState({ campsites: results, isLoading: false });
-    })
-    .catch(err => {
-      this.setState({ error: { type: 500 }});
-    })
+    this.getCampsites({lat: 41.39, lng: 2.15});    
   }
 
   render() {
     return (
       <div className="App">Guyrope
-        {/* map goes here */}
-        <MapContainer campsites={this.state.campsites} />
-        <CampsiteCard error={this.state.error} isLoading={this.state.isLoading} campsites={this.state.campsites} />
-        {/* <TopNav/>
-        <ResultsHeader locations={this.getLocationsFromQuerystring(this.state.querystring)}/>
-        <PlaceholderControls/>
-        <Results results={this.state.results} isLoading={this.state.isLoading} error={this.state.error}/> */}
+        <MapContainer campsites={this.state.campsites} getCampsites={this.getCampsites} />
+        {/* <CampsiteCard error={this.state.error} isLoading={this.state.isLoading} campsites={this.state.campsites} /> */}
       </div>
     );
   }

@@ -7,7 +7,7 @@ const CampsiteCard = props => {
     return <Campsite data={el} key={i} />
   });
 
-  if (props.error) {
+  if (props.error.type) {
     return (
       <div>Error!!</div>
     )
